@@ -21,6 +21,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'phone',
+        'birthday',
+        'profile_picture',
+        'role',
     ];
 
     /**
@@ -42,4 +46,36 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+     /**
+     * Check if user is a driver
+     */
+    public function isDriver()
+    {
+        return $this->role === 'driver';
+    }
+
+    /**
+     * Check if user is a passenger
+     */
+    public function isPassenger()
+    {
+        return $this->role === 'passenger';
+    }
+
+    /**
+     * Get the driver associated with the user.
+     */
+    public function driver()
+    {
+        return $this->hasOne(Driver::class);
+    }
+
+    /**
+     * Get the passenger associated with the user.
+     */
+    public function passenger()
+    {
+        return $this->hasOne(Passenger::class);
+    }
 }
